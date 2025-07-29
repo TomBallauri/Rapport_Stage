@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <title>Mission 3 – Ajout d’un lien Blob Storage pour les tables de notation des produits</title>
+    <meta name="description" content="Rapport de mission : Ajout d’un lien Blob Storage pour les tables de notation des produits.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <section class="experiences-hero bg-light py-4 mb-0">
+        <div class="container">
+            <div class="d-flex align-items-center mb-3">
+                <a href="experiences.html" class="btn btn-primary me-3" style="display: inline-flex; align-items: center; gap: 8px;">
+                    ← Retour aux Expériences
+                </a>
+                <h1 class="mb-0">Mission 3 – Ajout d’un lien Blob Storage pour les tables de notation des produits</h1>
+            </div>
+            <p class="lead text-secondary">Semaine 3-6 | Projets</p>
+        </div>
+    </section>
+
+    <section class="reflection-articles py-5 bg-white">
+        <div class="container">
+            <article class="reflection-article shadow-lg rounded-4 p-4 bg-light">
+                <div class="article-header mb-4 pb-2 border-bottom">
+                    <h2 class="fw-bold">Rapport de Mission</h2>
+                    <div class="article-meta d-flex gap-3 mt-2">
+                        <span class="article-date text-muted">Semaine 3-6</span>
+                        <span class="article-category badge bg-primary text-white">Projets</span>
+                    </div>
+                </div>
+                <div class="article-content">
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Mise en contexte</h3>
+                            <p class="mb-2">Dans le cadre de la publication des indices de réparabilité sur data.gouv.fr, certaines entreprises ne fournissent pas systématiquement la table de notation sous forme de fichier PDF dans les fichiers transmis. À la place, elles insèrent parfois un lien vers leur site (non pérenne ou inaccessible), ou omettent totalement ce document pourtant essentiel à la traçabilité et à la conformité.</p>
+                            <p class="mb-0">Pour remédier à ce manque, une solution interne a été mise en place pour héberger ces fichiers PDF sur un espace de stockage sécurisé (Blob Storage), et fournir un lien stable et exploitable qui sera ensuite inséré dans la base de données MongoDB pour exploitation ultérieure.</p>
+                    </section>
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Objectifs de la mission</h3>
+                        <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
+                            <ul class="mb-0 ms-2">
+                                <li>Générer dynamiquement un lien Blob Storage vers le PDF de la table de notation</li>
+                                <li>Lier ce lien au produit concerné dans la base de données MongoDB</li>
+                                <li>Améliorer la centralisation et l’accessibilité des documents</li>
+                                <li>Garantir la cohérence et la traçabilité des indices de réparabilité</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Problématique rencontrée</h3>
+                        <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
+                            <ul class="mb-2 ms-2">
+                                <li>Il n'existe pas de processus uniforme pour récupérer ou exploiter les PDF de notation :</li>
+                                <li>Parfois ils sont fournis via FTP,</li>
+                                <li>D’autres fois seulement un lien externe est inséré dans le fichier CSV, sans garantie de disponibilité à long terme.</li>
+                            </ul>
+                            <p class="mb-0">Cette hétérogénéité complique l’automatisation complète du dépôt sur data.gouv.fr et empêche l’exploitation fiable des informations par les services internes.</p>
+                        </div>
+                    </section>
+
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Solution mise en œuvre</h3>
+                        <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
+                            <ul class="mb-2 ms-2">
+                                <li><strong>Génération automatique d’un lien vers Blob Storage</strong><br>
+                                    Le lien final est construit à partir d’une base d’URL constante à laquelle on ajoute dynamiquement le nom du fichier PDF détecté :</li>
+                            </ul>
+                            <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto;">https://storage.company.net/repair_scores_tables/[nom_du_fichier].pdf</pre>
+                            <ul class="mb-0 ms-2">
+                                <li><strong>Insertion du lien dans MongoDB</strong><br>
+                                    Une fois le lien généré, il est inséré dans le document correspondant au produit dans la base MongoDB, enrichissant les métadonnées du produit.</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Architecture technique de la solution</h3>
+                        <div class="lessons-learned bg-white border rounded-3 p-3 mb-3">
+                            <h4 class="fw-normal">Technologies utilisées</h4>
+                            <ul class="row list-unstyled ms-1 mb-0">
+                                <li>Python 3.x : Langage principal</li>
+                                <li>pymongo : Interaction avec MongoDB</li>
+                                <li>os / pathlib : Lecture de fichiers</li>
+                                <li>re : Nettoyage et extraction des noms de fichiers</li>
+                                <li>blob storage Azure (ou compatible) : Stockage distant des fichiers PDF</li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Fonctionnalités développées</h3>
+                        <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
+    <ul class="ms-3">
+        <li class="mb-3"><strong>Génération et insertion du lien Blob Storage</strong><br>
+            <span class="fw-semibold">Objectif :</span> Générer dynamiquement un lien stable vers le PDF de notation et l'insérer automatiquement dans MongoDB.<br>
+            <span class="fw-semibold">Pipeline automatisé :</span>
+            <ul class="ms-4 mb-2">
+                <li>Le nom du PDF est construit à partir du nom du CSV traité : <code>[nom_fichier]-TABLEAU_DE_NOTATION.pdf</code> (ou suffixé si déjà présent).</li>
+                <li>L'URL finale est générée :<br>
+                    <code>https://webprodstoragepublic.blob.core.windows.net/indicedereparabilite/scores/[nom_fichier]-TABLEAU_DE_NOTATION.pdf</code>
+                </li>
+                <li>Un JSON minimal est créé : <code>{ "nom_modele": ..., "url_tableau_detail_notation": ... }</code></li>
+                <li>Connexion à MongoDB via <code>pymongo</code> et mise à jour du document correspondant (<code>nom_modele</code>).</li>
+                <li>Logs et alertes en cas de champ manquant ou d'échec d'insertion.</li>
+            </ul>
+            <span class="fw-semibold">Exemple de pipeline :</span>
+            <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto; margin-bottom: 3%;">csv_filename = "miele_note_produit_12345.csv"
+url = generate_blob_pdf_url(csv_filename)
+json_data = create_json_for_pdf("miele_note_produit_12345", url)
+insert_json_to_mongodb(json_data, mongo_uri, db_name, collection_name)</pre>
+            <span class="fw-semibold">Exemple de document inséré :</span>
+            <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto;">{
+  "nom_modele": "miele_note_produit_12345",
+  "url_tableau_detail_notation": "https://webprodstoragepublic.blob.core.windows.net/indicedereparabilite/scores/miele_note_produit_12345-TABLEAU_DE_NOTATION.pdf"
+}</pre>
+        </li>
+    </ul>
+</div>
+                    </section>
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Résultat</h3>
+                        <div class="lessons-learned bg-white border rounded-3 p-3 mb-3">
+                            <h4 class="fw-normal mb-3">Mission accomplie</h4>
+                            <p><strong>✓ Déployé en production</strong> sur serveur sécurisé</p>
+                            <p><strong>✓ Surveillance automatique</strong> 24/7</p>
+                            <p><strong>✓ Synchronisation en temps réel</strong> avec MongoDB</p>
+                            <p><strong>✓ Zéro intervention manuelle</strong> requise</p>
+                        </div>
+                    </section>
+                    <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Conclusion</h3>
+                        <p>Cette mission m’a permis de développer une solution complète et robuste pour résoudre une problématique réelle rencontrée par les équipes métier. En plus de renforcer la fiabilité des données publiées, cette évolution contribue à professionnaliser notre gestion documentaire, tout en respectant les contraintes d’automatisation. J’ai pu approfondir mes compétences en traitement de fichiers, en manipulation de MongoDB, et en conception de workflows fiables et réutilisables.</p>
+                    </section>
+                    <div class="d-flex justify-content-end mt-5">
+                    </div>
+                </div>
+            </article>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="mission_2.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; margin-right: 16px;">
+                    ← Mission Précédente 
+                </a>
+                <a href="experiences.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-right: 16px;">
+                    Retour aux Expériences
+                </a>
+                <a href="bilan_final.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+                    Mission Suivante →
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

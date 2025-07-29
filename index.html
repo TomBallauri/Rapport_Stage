@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <title>Accueil - Mon Blog de Stage</title>
+    <meta name="description" content="Découvrez mon expérience de stage et mes apprentissages">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../assets/Agora_Logo.png" alt="Agora Plus" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="pages/about.html">À propos</a>
+                <a href="pages/experiences.html">Expériences</a>
+                <a href="pages/contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Mon Expérience de Stage</h1>
+                    <p class="hero-subtitle">Découvrez mon parcours, mes missions et mes apprentissages durant mon stage de fin d'année</p>
+                    <div class="hero-actions">
+                        <a href="pages/experiences.html" class="btn btn-primary">Voir mes expériences</a>
+                        <a href="pages/about.html" class="btn btn-secondary">En savoir plus</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="assets/Screen3.png" alt="Environnement de travail moderne" />
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-posts">
+            <div class="container">
+                <h2 class="section-title">Mes Missions Principales</h2>
+                <div class="posts-grid">
+                    <article class="post-card">
+                        <img src="assets/mission1_img.png" alt="Automatisation DataGouv" />
+                        <div class="post-content">
+                            <h3>Automatisation DataGouv → MongoDB</h3>
+                            <p>Développement d'un système d'automatisation en C# pour récupérer et synchroniser les données d'indice de réparabilité depuis l'API DataGouv vers MongoDB.</p>
+                            <a href="pages/mission_1.html" class="read-more">Voir la mission →</a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <img src="assets/mission2_img.png" alt="Projets collaboratifs" />
+                        <div class="post-content">
+                            <h3>Automatisation de l'upload d'indices de réparabilité/durabilité → Data.gouv</h3>
+                            <p>Développement d'un système d'automatisation en Python pour exécuter les macros des fichiers .xlms pour créer un .csv, qui sera upload automatiquement sur Data.gouv.</p>
+                            <a href="pages/mission_2.html" class="read-more">Voir la mission →</a>
+                        </div>
+                    </article>
+                    <article class="post-card">
+                        <img src="assets/mission3_img.png" alt="Intégration équipe" />
+                        <div class="post-content">
+                            <h3>Ajouts automatiques du lien du PDF vers le tableau de notation des produits → BDD MongoDB</h3>
+                            <p>Ajout d'une fonctionnalité pour automatiser l'ajout des liens PDF vers la base de données MongoDB.</p>
+                            <a href="pages/mission_3.html" class="read-more">Voir la mission →  </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-overview">
+            <div class="container">
+                <h2 class="section-title">Mon Stage en Chiffres</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Semaines de stage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Missions principales</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Système déployé</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Objectifs atteints</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-showcase">
+            <div class="container">
+                <h2 class="section-title">Compétences Développées</h2>
+                <p class="section-subtitle">Les technologies et savoir-faire acquis durant mon stage</p>
+                
+                <div class="skills-categories">
+                    <div class="skill-category">
+                        <h3>💻 Technologies</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag tech">C# .NET 8.0</span>
+                            <span class="skill-tag tech">Python</span>
+                            <span class="skill-tag tech">MongoDB</span>
+                            <span class="skill-tag tech">API REST</span>
+                            <span class="skill-tag tech">Azure DevOps</span>
+                            <span class="skill-tag tech">Git</span>
+                            <span class="skill-tag tech">SQL Server</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>🔧 Méthodologies</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag method">DevOps</span>
+                            <span class="skill-tag method">Code Review</span>
+                            <span class="skill-tag method">Automatisation de processus</span>
+                            <span class="skill-tag method">Gestion d'API</span>
+                            <span class="skill-tag method">Logging</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>🤝 Soft Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag soft">Travail d'équipe</span>
+                            <span class="skill-tag soft">Travail en entreprise</span>
+                            <span class="skill-tag soft">Communication</span>
+                            <span class="skill-tag soft">Autonomie</span>
+                            <span class="skill-tag soft">Résolution de problèmes</span>
+                            <span class="skill-tag soft">Adaptabilité</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" style="margin-top: 0px;">
+        <div class="footer-container">
+            <p>&copy; 2025 Mon Blog de Stage. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="pages/about.html">À propos</a>
+                <a href="pages/experiences.html">Expériences</a>
+                <a href="pages/contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

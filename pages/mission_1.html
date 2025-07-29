@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <title>Mission 1 - Intégration et Découverte</title>
+    <meta name="description" content="Détails de ma première mission de stage : Intégration et Découverte">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../assets/Agora_Logo.png" alt="Agora Plus" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="about.html">À propos</a>
+                <a href="experiences.html">Expériences</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="experiences-hero">
+            <div class="container">
+                <div style="margin-bottom: 20px;">
+                    <a href="experiences.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        ← Retour aux Expériences
+                    </a>
+                </div>
+                <h1>Mission 1 : Automatisation DataGouv MongoDB</h1>
+                <p class="lead">Semaine 2 - Développement d'un système d'automatisation</p>
+            </div>
+        </section>
+
+        <section class="reflection-articles">
+            <div class="container">
+                <article class="reflection-article">
+                    <div class="article-header">
+                        <h2>Rapport de Mission - Automatisation DataGouv MongoDB</h2>
+                        <div class="article-meta">
+                            <span class="article-date">Semaine 1</span>
+                            <span class="article-category">Développement</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <h3>Mise en Contexte</h3>
+                        <p>L'entreprise avait besoin d'automatiser la récupération des données d'indice de réparabilité des lave-linges depuis l'API publique DataGouv et de les synchroniser automatiquement dans leur base MongoDB.</p>
+                        
+                        <h3>Objectif</h3>
+                        <p>Développer un exécutable C# autonome qui surveille l'API DataGouv en continu et met à jour la base MongoDB uniquement en cas de nouveaux changements.</p>
+                        
+                        <h3>Technologies Utilisées</h3>
+                        <div class="highlight-box">
+                            <h4>Stack Technique</h4>
+                            <ul>
+                                <li><strong>C# .NET 8.0</strong> - Application console</li>
+                                <li><strong>MongoDB Driver</strong> - Interaction base de données</li>
+                                <li><strong>Log4net + ElasticSearch</strong> - Logging et monitoring</li>
+                                <li><strong>API REST DataGouv</strong> - Source de données</li>
+                            </ul>
+                        </div>
+
+                        <h3>Solution Développée</h3>
+                        <p>Application console avec service de surveillance automatique :</p>
+                        <ul>
+                            <li><strong>Polling intelligent :</strong> vérification périodique de l'API</li>
+                            <li><strong>Détection de changements :</strong> comparaison par EAN + timestamp</li>
+                            <li><strong>Upsert MongoDB :</strong> insertion/mise à jour automatique</li>
+                            <li><strong>Validation de données :</strong> parsing des scores de réparabilité</li>
+                        </ul>
+
+                        <h3>Architecture</h3>
+                        <div class="highlight-box">
+                            <h4>Structure du Projet</h4>
+                            <pre style="background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 8px; overflow-x: auto;">
+APIAutomatisation/
+├── Program.cs                  # Point d'entrée application
+├── Services/
+│   └── MongoService.cs        # Service principal MongoDB
+├── Models/
+│   └── DataModel.cs           # Modèle de données produit
+├── Api/
+│   └── ApiClient.cs           # Client API DataGouv
+└── appsettings.json           # Configuration
+
+MongoDB:
+└── Database: IndiceReparabilitePP
+    └── Collection: Product</pre>
+                        </div>
+
+                        <h3>Points Clés</h3>
+                        <div class="lessons-learned">
+                            <h4>Caractéristiques Techniques</h4>
+                            <p><strong>Performance :</strong> évite les mises à jour inutiles via comparaison de dictionnaires</p>
+                            <p><strong>Robustesse :</strong> gestion d'erreurs avec continuation du service</p>
+                            <p><strong>Traçabilité :</strong> logging détaillé des opérations</p>
+                            <p><strong>Scalabilité :</strong> architecture extensible pour autres produits</p>
+                        </div>
+
+                        <h3>Processus de Développement et Intégration</h3>
+                        
+                        <h4>Cycle de Révision de Code et Validation</h4>
+                        <p><strong>1. Soumission de la Pull Request</strong><br>
+                        Une fois le développement initial terminé, j'ai soumis une Pull Request sur Azure DevOps pour faire réviser mon code par l'équipe senior.</p>
+
+                        <p><strong>2. Révision de Code et Optimisations</strong><br>
+                        Le responsable technique a effectué une analyse approfondie du code et m'a fourni des observations constructives sur plusieurs aspects :</p>
+                        <ul>
+                            <li>Optimisation des performances des requêtes MongoDB</li>
+                            <li>Amélioration de la gestion des erreurs et de la robustesse</li>
+                            <li>Standardisation du logging selon les conventions de l'entreprise</li>
+                            <li>Refactorisation pour une meilleure lisibilité et maintenabilité</li>
+                        </ul>
+
+                        <h4>Analyse SonarQube - Qualité de Code</h4>
+                        <div class="highlight-box">
+                            <h4>Outils d'Analyse Statique</h4>
+                            <p>SonarQube est un outil d'analyse statique de code qui détecte automatiquement :</p>
+                            <ul>
+                                <li><strong>Bugs potentiels :</strong> erreurs de logique, fuites mémoire, exceptions non gérées</li>
+                                <li><strong>Vulnérabilités de sécurité :</strong> injections, authentification faible, données sensibles exposées</li>
+                                <li><strong>Code smells :</strong> code dupliqué, méthodes trop complexes, conventions de nommage</li>
+                                <li><strong>Couverture de tests :</strong> pourcentage de code testé et qualité des tests</li>
+                            </ul>
+                        </div>
+                        <p>Grâce à SonarQube, j'ai pu identifier et corriger plusieurs points d'optimisation dans mon code, améliorant ainsi sa qualité et sa robustesse.</p>
+
+                        <p><strong>3. Validation Finale et Merge</strong><br>
+                        Après implémentation des optimisations suggérées :</p>
+                        <ul>
+                            <li>Nouvelle analyse SonarQube : 0 bug, 0 vulnérabilité, qualité A</li>
+                            <li>Révision finale du code par le responsable technique</li>
+                            <li>Validation et merge de la Pull Request dans la branche principale</li>
+                        </ul>
+
+                        <h4>Déploiement en Production</h4>
+                        <p>Le responsable de la base de données a intégré l'exécutable dans l'infrastructure :</p>
+                        <div class="future-goals">
+                            <h4>Configuration Déploiement</h4>
+                            <ul>
+                                <li><strong>Job SQL Server :</strong> planification automatique de l'exécutable</li>
+                                <li><strong>Intervalle configuré :</strong> surveillance continue 24/7 avec polling toutes les heures</li>
+                                <li><strong>Monitoring :</strong> intégration des logs dans ElasticSearch pour supervision</li>
+                            </ul>
+                        </div>
+
+                        <h4>Retour d'Expérience - Processus DevOps</h4>
+                        <p>Ce processus collaboratif m'a permis d'apprendre :</p>
+                        <ul>
+                            <li><strong>Standards de qualité :</strong> importance de la révision de code par les pairs</li>
+                            <li><strong>Outils d'analyse :</strong> utilisation de SonarQube pour maintenir un code de qualité production</li>
+                            <li><strong>Workflow Azure DevOps :</strong> gestion des branches, Pull Requests et intégration continue</li>
+                            <li><strong>Déploiement sécurisé :</strong> validation multi-niveaux avant mise en production</li>
+                        </ul>
+
+                        <h3>Validation et Traçabilité du Déploiement</h3>
+                        
+                        <div class="highlight-box">
+                            <h4>Preuves de Déploiement</h4>
+                            
+                            <div style="margin: 24px 0;">
+                                <p><strong>Ticket de Mission Azure DevOps</strong></p>
+                                <img src="../assets/Screen1.jpg" alt="Ticket Azure DevOps - User Story 40362 DataGouvToMongoDB" 
+                                     style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 16px 0;">
+                                <p style="font-style: italic; color: #64748b; font-size: 14px;">
+                                    <strong>Légende :</strong> User Story #40362 validée dans Azure DevOps montrant le statut "Development done" 
+                                    avec intégration réussie dans les builds de développement, preproduction et production.
+                                </p>
+                            </div>
+
+                            <div style="margin: 24px 0;">
+                                <p><strong>Exécutable Déployé en Production</strong></p>
+                                <img src="../assets/Screen2.png" alt="SQL Server Agent Job - DataGouvToMongoDB en production" 
+                                     style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 16px 0;">
+                                <p style="font-style: italic; color: #64748b; font-size: 14px;">
+                                    <strong>Légende :</strong> Job SQL Server Agent "DataGouvToMongoDB" configuré et actif sur le serveur de production, 
+                                    assurant l'exécution automatique de la synchronisation des données.
+                                </p>
+                            </div>
+                            
+                            <p><strong>Description détaillée :</strong></p>
+                            <ul>
+                                <li><strong>Azure DevOps :</strong> La User Story #40362 montre le cycle complet de développement avec validation des builds sur tous les environnements</li>
+                                <li><strong>SQL Server Agent :</strong> L'exécutable est intégré dans l'infrastructure de production avec planification automatique</li>
+                                <li><strong>Monitoring :</strong> Les logs sont automatiquement intégrés dans ElasticSearch pour supervision continue</li>
+                            </ul>
+                        </div>
+
+                        <h3>Résultat</h3>
+                        <div class="lessons-learned">
+                            <h4>Mission Accomplie</h4>
+                            <p><strong>✓ Déployé en production</strong> sur serveur</p>
+                            <p><strong>✓ Surveillance automatique</strong> 24/7</p>
+                            <p><strong>✓ Synchronisation temps réel</strong> avec DataGouv</p>
+                            <p><strong>✓ Zéro intervention manuelle</strong> requise</p>
+                        </div>
+
+                        <h3>Conclusion</h3>
+                        <p>La mission a été entièrement validée à travers les outils de l'entreprise. Le système est maintenant pleinement opérationnel, conforme au cahier des charges, et autonome. Il n'exige plus d'intervention humaine, tout en assurant <strong>fiabilité</strong>, <strong>traçabilité</strong> et <strong>extensibilité</strong>.</p>
+                    </div>
+                </article>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="intro.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; margin-right: 16px;">
+                        ← Mission Précédente 
+                    </a>
+                    <a href="experiences.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-right: 16px;">
+                        Retour aux Expériences
+                    </a>
+                    <a href="mission_2.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        Mission Suivante →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Mon Blog de Stage. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

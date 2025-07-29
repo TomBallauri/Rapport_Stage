@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <title>Mission 2 - Premiers Projets</title>
+    <meta name="description" content="Détails de ma deuxième mission de stage : Premiers Projets">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <img src="../assets/Agora_Logo.png" alt="Agora Plus" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="about.html">À propos</a>
+                <a href="experiences.html">Expériences</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <section class="experiences-hero">
+            <div class="container">
+                <div style="top: 20px; left: 0;">
+                    <a href="experiences.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        ← Retour aux Expériences
+                    </a>
+                </div>
+                <h1>Mission 2 : Automatisation de publication d'indices de réparabilité et de durabilité sur data.gouv.fr</h1>
+                <p class="lead">Semaine 3-6</p>
+            </div>
+        </section>
+
+        <section class="reflection-articles">
+            <div class="container">
+                <article class="reflection-article">
+                    <div class="article-header">
+                        <h2>Rapport de Mission - Automatisation de publication d'indices de réparabilité et de durabilité sur data.gouv.fr</h2>
+                        <div class="article-meta">
+                            <span class="article-date">Semaine 3-6</span>
+                            <span class="article-category">Projets</span>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <h3>Contexte de la mission</h3>
+                        <p>En France, les vendeurs d’électroménager sont légalement tenus de publier les indices de réparabilité et de durabilité de leurs produits sur le site officiel data.gouv.fr. Toutefois, la plateforme actuelle ne propose pas de solution simple et rapide pour effectuer cette tâche, ce qui pousse certains professionnels à externaliser cette démarche.</p>
+                        <h3>Objectifs de la Mission</h3>
+                        <p>Mon objectif a été d’automatiser l’envoi régulier des indices de réparabilité et de durabilité, afin de :</p>
+                        <div class="highlight-box">
+                            <h4>Principales Réalisations</h4>
+                            <ul>
+                                <li>Faciliter le respect de la réglementation</li>
+                                <li>Alléger la charge de travail liée à une saisie manuelle récurrente</li>
+                                <li>Tests et validation des fonctionnalités développées</li>
+                                <li>Réduire les erreurs humaines</li>
+                                <li>Améliorer les délais de traitement</li>
+                            </ul>
+                        </div>
+
+                        <h3>Problématique rencontrée</h3>
+                        <p>Au cours de mes recherches, j’ai constaté que la plateforme data.gouv.fr ne propose aucune API publique permettant un dépôt automatisé via des requêtes HTTP standard ou des intégrations classiques. Cela rend les solutions d’automatisation traditionnelles (type webhook ou API REST) inutilisables dans ce contexte.</p>
+
+                        <div class="highlight-box">
+                            <h4>Solution mise en œuvre</h4>
+                            <p>Pour contourner cette limitation, j’ai mis en place une solution d’automatisation via script de navigateur utilisant Selenium. Selenium est un outil permettant d’automatiser les actions d’un utilisateur sur un navigateur web (Chrome, Firefox, etc.), telles que :</p>
+                            <ul>
+                                <li>La navigation vers une page</li>
+                                <li>La connexion à un compte</li>
+                                <li>Le remplissage de formulaires</li>
+                                <li>Le téléversement de fichiers</li>
+                                <li>La validation ou la soumission de données</li>
+                            </ul>
+                        </div>
+
+                        <p>Ce script reproduit fidèlement le comportement d’un utilisateur humain, mais de façon automatique et répétable ce qui est exactement ce que je recherche.</p>
+
+                        <h3>Architecture technique de la solution</h3>
+                        <div class="lessons-learned">
+                            <h4>Technologies utilisées</h4>
+                            <ul>
+                                <li>Python 3.x : Langage de programmation principal</li>
+                                <li>Selenium WebDriver : Automatisation du navigateur web</li>
+                                <li>Pandas : Traitement et manipulation des données CSV/Excel</li>
+                                <li>WebDriver Manager : Gestion automatique des pilotes de navigateur</li>
+                                <li>Microsoft Edge : Navigateur cible pour l'automatisation</li>
+                            </ul>
+                        </div>
+                        
+                        <h3>Architecture</h3>
+                        <div class="highlight-box">
+                            <h4>Structure du Projet</h4>
+                            <pre style="background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 8px; overflow-x: auto;">
+├── main.py                   # Script principal
+├── requirements.txt          # Dépendances Python
+├── enterprises_config.json   # Configuration dynamique des entreprises
+├── input_files/              # Dossier des fichiers sources
+├── output_csv/               # Fichiers CSV convertis
+└── error_folder/             # Fichiers et logs d'erreurs</pre>
+                        </div>
+                        
+                        <h3>Fonctionnalités développées</h3>
+                        <div class="highlight-box">
+                            <h1><strong>Conversion automatique de formats :</strong></h1>
+                            <h4>Objectif :</h4>
+                            <p>Cette mission m'a enseigné l'importance de la communication dans les projets collaboratifs et la valeur de la planification rigoureuse. J'ai également découvert ma capacité d'adaptation face aux défis techniques et ma motivation pour résoudre des problèmes complexes.</p>
+                            <h4>Fonctionnalités :</h4>
+                            <ul>
+                                <li>Support de multiples formats d'entrée : `.xlsx`, `.xls`, `.xlsm`, `.csv`</li>
+                                <li>Conversion automatique vers le format CSV</li>
+                                <li>Ajout automatique de la date du jour au nom du fichier (`nom_original_YYYY-MM-DD.csv`)</li>
+                                <li>Suppression automatique des fichiers sources après conversion réussie</li>
+                                <li>Stockage des fichiers convertis dans le dossier `output_csv/`</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h4><strong>Détection automatique des entreprises :</strong></h4>
+                            <h4>Objectif :</h4>
+                            <p>Identifier automatiquement l'entreprise concernée sans intervention manuelle</p>
+
+                            <h4>Fonctionnement :</h4>
+                            <ul>
+                                <li>Analyse intelligente du nom de fichier pour extraire le nom de l'entreprise</li>
+                                <li>Nettoyage automatique des mots-clés non pertinents (indice, réparabilité, données, etc.)</li>
+                                <li>Système de cache avec sauvegarde dans `enterprises_config.json`</li>
+                                <li>Apprentissage automatique : les nouvelles entreprises détectées sont mémorisées</li>
+                                <li>Support de différents formats de noms (séparés par `_`, `-`, espaces, etc.)</li>
+                            </ul>
+
+                            <h4>Exemples de détection :</h4>
+                            <ul>
+                                <li>`seb_indice_reparabilite_2024.xlsx` → Détecte "SEB"</li>
+                                <li>`MIELE-durabilite-export.csv` → Détecte "MIELE"</li>
+                                <li>`nouveau_constructeur_data.xlsx` → Détecte "nouveau_constructeur"</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h1><strong>Détection du type d'indice :</strong></h1>
+                            <h4>Objectif :</h4>
+                            <p>Distinguer automatiquement entre indices de réparabilité et de durabilité</p>
+
+                            <h4>Fonctionnement :</h4>
+                            <ul>
+                                <li>Analyse du nom de fichier pour identifier le type d'indice</li>
+                                <li>Priorité à la durabilité (plus spécifique) puis réparabilité par défaut</li>
+                                <li>Support multilingue (français/anglais)</li>
+                            </ul>
+                            <h4>Adaptation automatique :</h4>
+                            <p>Adaptation automatique de la sélection du jeu de données correspondant</p>
+
+                            <h4>Mots-clés reconnus :</h4>
+                            <ul>
+                                <li>Durabilité : "durabilite", "durabilité", "durability", "sustainability"</li>
+                                <li>Réparabilité : "reparabilite", "réparabilité", "repairability", "repair"</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h1><strong>Gestion avancée des erreurs :</strong></h1>
+
+                            <h4>Objectif :</h4>
+
+                            <p>Capturer, analyser et documenter tous les problèmes rencontrés</p>
+
+                            <h4>Fonctionnalités :</h4>
+                            <ul>
+                                <li>Capture automatique des rapports d'erreur de la plateforme data.gouv.fr</li>
+                                <li>Extraction intelligente des messages d'erreur détaillés</li>
+                                <li>Sauvegarde automatique des logs d'erreurs avec horodatage</li>
+                            </ul>
+                            <ul>
+                                <li>Déplacement automatique des fichiers problématiques vers `error_folder/`</li>
+                                <li>Analyse structurée des erreurs VSA (Vue Structure Accordéon)</li>
+                            </ul>
+
+                            <h4>Processus de gestion d'erreur:</h4>
+                            <ul>
+                                <li>Détection d'une erreur lors de la validation du fichier</li>
+                                <li>Clic automatique sur "Voir le rapport d'erreur"</li>
+                                <li>Extraction du contenu détaillé des erreurs</li>
+                                <li>Sauvegarde dans `error_folder/nom_fichier_error_log_YYYYMMDD_HHMMSS.txt`</li>
+                                <li>Déplacement du fichier CSV source vers `error_folder/`</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h1><strong>Correspondance intelligente des organisations et jeux de données :</strong></h1>
+
+                            <h4>Objectif :</h4>
+                            <p>Sélectionner automatiquement la bonne organisation et le bon jeu de données</p>
+
+                            <h4>Fonctionnement :</h4>
+                            <ul>
+                                <li>Système de scoring pour évaluer la pertinence des correspondances</li>
+                                <li>Recherche adaptative qui s'ajuste selon le type d'indice détecté</li>
+                                <li>Gestion des priorités : entreprise + type d'indice, puis type d'indice seul</li>
+                                <li>Fallback intelligent vers des correspondances partielles</li>
+                            </ul>
+
+
+                            <h4>Algorithme de score :</h4>
+                            <ul>
+                                <li>Correspondance exacte de mots-clés : +20-25 points</li>
+                                <li>Correspondance partielle : +10-15 points</li>
+                                <li>Mots-clés spécialisés (réparabilité, durabilité) : +25 points</li>
+                                <li>Entreprises connues : +15-20 points</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <h1><strong>Envoie de mail d'alerte en cas d'échec de publication :</strong></h1>
+
+                            <h4>Objectif :</h4>
+                            <p>Informer les parties prenantes en cas d'échec de la publication des données</p>
+
+                            <h4>Fonctionnement :</h4>
+                            <ul>
+                                <li>Détection d'un échec de publication</li>
+                                <li>Envoi automatique d'un email aux parties prenantes</li>
+                                <li>Contenu de l'email : détails de l'échec, actions correctives recommandées</li>
+                            </ul>
+
+                            <h4>Screen du mail :</h4>
+                                    <img src="../assets/Screen_Mail.png" alt="Capture d'écran du mail d'alerte" style="max-width: 100%; height: auto; border-radius: 8px;"></img>
+                        </div>
+
+                        <h3>Conclusion</h3>
+                            <p>L’automatisation via Selenium remplit pleinement son rôle : elle permet de publier les indices de réparabilité et de durabilité sur data.gouv.fr sans intervention humaine. La solution est opérationnelle, conforme aux obligations légales, et s’intègre efficacement dans le processus métier. En l’absence d’API officielle, cette méthode reste, à ce jour, l’unique alternative viable.</p>
+
+                </article>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="mission_1.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px; margin-right: 16px;">
+                        ← Mission Précédente 
+                    </a>
+                    <a href="experiences.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-right: 16px;">
+                        Retour aux Expériences
+                    </a>
+                    <a href="mission_3.html" class="btn btn-secondary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        Mission Suivante →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Mon Blog de Stage. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

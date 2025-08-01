@@ -46,8 +46,8 @@
                             <ul class="mb-0 ms-2">
                                 <li>Générer dynamiquement un lien Blob Storage vers le PDF de la table de notation</li>
                                 <li>Lier ce lien au produit concerné dans la base de données MongoDB</li>
-                                <li>Améliorer la centralisation et l’accessibilité des documents</li>
-                                <li>Garantir la cohérence et la traçabilité des indices de réparabilité</li>
+                                <li>L'insérer dans la base MongoDB à la bonne colonne</li>
+                                <li>Rendre les données fournies plus complètes</li>
                             </ul>
                         </div>
                     </section>
@@ -55,11 +55,11 @@
                         <h3 class="fw-semibold mb-2">Problématique rencontrée</h3>
                         <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
                             <ul class="mb-2 ms-2">
-                                <li>Il n'existe pas de processus uniforme pour récupérer ou exploiter les PDF de notation :</li>
-                                <li>Parfois ils sont fournis via FTP,</li>
-                                <li>D’autres fois seulement un lien externe est inséré dans le fichier CSV, sans garantie de disponibilité à long terme.</li>
+                                <li>Parfois, les fichiers PDF sont fournis directement dans le fichier contenant les indices de réparabilité</li>
+                                <li>Parfois, ils sont fournis via FTP</li>
+                                <li>Parfois, ils sont fournis par email</li>
                             </ul>
-                            <p class="mb-0">Cette hétérogénéité complique l’automatisation complète du dépôt sur data.gouv.fr et empêche l’exploitation fiable des informations par les services internes.</p>
+                            <p class="mb-0">Toutes ces variations rendent le code plus complexe et doit prendre en compte plein de facteurs</p>
                         </div>
                     </section>
 

@@ -37,17 +37,31 @@
                 <div class="article-content">
                     <section class="mb-4">
                         <h3 class="fw-semibold mb-2">Mise en contexte</h3>
-                            <p class="mb-2">Dans le cadre de la publication des indices de réparabilité sur data.gouv.fr, certaines entreprises ne fournissent pas systématiquement la table de notation sous forme de fichier PDF dans les fichiers transmis. À la place, elles insèrent parfois un lien vers leur site (non pérenne ou inaccessible), ou omettent totalement ce document pourtant essentiel à la traçabilité et à la conformité.</p>
+                            <p class="mb-2">Dans le cadre de la publication des indices de réparabilité sur data.gouv.fr, certaines entreprises ne fournissent pas systématiquement la table de notation sous forme de fichier PDF dans les fichiers transmis. À la place, elles insèrent parfois un lien vers leur site web, rendant non seulement le fichier pas éligible à la publication dans certains cas, mais rendant la table de notation inaccessible. Cela peut être expliqué par le fait qu'ils n'ont pas d'emplacement dédié pour héberger des PDF en grande quantité.</p>
                             <p class="mb-0">Pour remédier à ce manque, une solution interne a été mise en place pour héberger ces fichiers PDF sur un espace de stockage sécurisé (Blob Storage), et fournir un lien stable et exploitable qui sera ensuite inséré dans la base de données MongoDB pour exploitation ultérieure.</p>
                     </section>
                     <section class="mb-4">
                         <h3 class="fw-semibold mb-2">Objectifs de la mission</h3>
                         <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
                             <ul class="mb-0 ms-2">
+                                <li>Héberger le PDF du produit envoyé par l'entreprise</li>
                                 <li>Générer dynamiquement un lien Blob Storage vers le PDF de la table de notation</li>
-                                <li>Lier ce lien au produit concerné dans la base de données MongoDB</li>
-                                <li>L'insérer dans la base MongoDB à la bonne colonne</li>
-                                <li>Rendre les données fournies plus complètes</li>
+                                <li>Insérer le lien du PDF dans le CSV</li>
+                                <li>Mettre à jour le fichier dans la base MongoDB</li>
+
+                            </ul>
+                        </div>
+                    </section>
+                                        <section class="mb-4">
+                        <h3 class="fw-semibold mb-2">Architecture technique de la solution</h3>
+                        <div class="lessons-learned bg-white border rounded-3 p-3 mb-3">
+                            <h4 class="fw-normal">Technologies utilisées</h4>
+                            <ul class="row list-unstyled ms-1 mb-0">
+                                <li>Python 3.x : Langage principal</li>
+                                <li>pymongo : Interaction avec MongoDB</li>
+                                <li>os / pathlib : Lecture de fichiers</li>
+                                <li>re : Nettoyage et extraction des noms de fichiers</li>
+                                <li>blob storage Azure (ou compatible) : Stockage distant des fichiers PDF</li>
                             </ul>
                         </div>
                     </section>
@@ -67,58 +81,55 @@
                         <h3 class="fw-semibold mb-2">Solution mise en œuvre</h3>
                         <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
                             <ul class="mb-2 ms-2">
-                                <li><strong>Génération automatique d’un lien vers Blob Storage</strong><br>
-                                    Le lien final est construit à partir d’une base d’URL constante à laquelle on ajoute dynamiquement le nom du fichier PDF détecté :</li>
-                            </ul>
-                            <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto;">https://storage.company.net/repair_scores_tables/[nom_du_fichier].pdf</pre>
-                            <ul class="mb-0 ms-2">
-                                <li><strong>Insertion du lien dans MongoDB</strong><br>
-                                    Une fois le lien généré, il est inséré dans le document correspondant au produit dans la base MongoDB, enrichissant les métadonnées du produit.</li>
-                            </ul>
-                        </div>
-                    </section>
-                    <section class="mb-4">
-                        <h3 class="fw-semibold mb-2">Architecture technique de la solution</h3>
-                        <div class="lessons-learned bg-white border rounded-3 p-3 mb-3">
-                            <h4 class="fw-normal">Technologies utilisées</h4>
-                            <ul class="row list-unstyled ms-1 mb-0">
-                                <li>Python 3.x : Langage principal</li>
-                                <li>pymongo : Interaction avec MongoDB</li>
-                                <li>os / pathlib : Lecture de fichiers</li>
-                                <li>re : Nettoyage et extraction des noms de fichiers</li>
-                                <li>blob storage Azure (ou compatible) : Stockage distant des fichiers PDF</li>
+                                <li><strong>Gestion de la réception des indices de réparabilité par FTP et mails</strong><br>
+                                    Mon script vérifie simplement s'il a reçu un mail ou un fichier via FTP à chaque lancement. Si c'est le cas, il télécharge les fichiers dans le dossier "input_files" pour qu'ils puissent être uploadés.    
+                                </li>
                             </ul>
                         </div>
                     </section>
                     <section class="mb-4">
                         <h3 class="fw-semibold mb-2">Fonctionnalités développées</h3>
-                        <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
-    <ul class="ms-3">
-        <li class="mb-3"><strong>Génération et insertion du lien Blob Storage</strong><br>
-            <span class="fw-semibold">Objectif :</span> Générer dynamiquement un lien stable vers le PDF de notation et l'insérer automatiquement dans MongoDB.<br>
-            <span class="fw-semibold">Pipeline automatisé :</span>
-            <ul class="ms-4 mb-2">
-                <li>Le nom du PDF est construit à partir du nom du CSV traité : <code>[nom_fichier]-TABLEAU_DE_NOTATION.pdf</code> (ou suffixé si déjà présent).</li>
-                <li>L'URL finale est générée :<br>
-                    <code>https://webprodstoragepublic.blob.core.windows.net/indicedereparabilite/scores/[nom_fichier]-TABLEAU_DE_NOTATION.pdf</code>
-                </li>
-                <li>Un JSON minimal est créé : <code>{ "nom_modele": ..., "url_tableau_detail_notation": ... }</code></li>
-                <li>Connexion à MongoDB via <code>pymongo</code> et mise à jour du document correspondant (<code>nom_modele</code>).</li>
-                <li>Logs et alertes en cas de champ manquant ou d'échec d'insertion.</li>
-            </ul>
-            <span class="fw-semibold">Exemple de pipeline :</span>
-            <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto; margin-bottom: 3%;">csv_filename = "miele_note_produit_12345.csv"
-url = generate_blob_pdf_url(csv_filename)
-json_data = create_json_for_pdf("miele_note_produit_12345", url)
-insert_json_to_mongodb(json_data, mongo_uri, db_name, collection_name)</pre>
-            <span class="fw-semibold">Exemple de document inséré :</span>
-            <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto;">{
-  "nom_modele": "miele_note_produit_12345",
-  "url_tableau_detail_notation": "https://webprodstoragepublic.blob.core.windows.net/indicedereparabilite/scores/miele_note_produit_12345-TABLEAU_DE_NOTATION.pdf"
-}</pre>
-        </li>
-    </ul>
-</div>
+                            <div class="highlight-box bg-white border rounded-3 p-3 mb-3">
+                                <ul class="mb-2 ms-2">
+                                <li><strong>Génération automatique d’un lien vers Blob Storage</strong><br>
+                                    Le lien final est construit à partir d’une base d’URL constante à laquelle on ajoute dynamiquement le nom du fichier PDF détecté :</li>
+                            </ul>
+                                <pre class="bg-light border rounded-3 p-2 mb-2" style="font-size:15px; overflow-x:auto;">https://webprodstoragepublic.blob.core.windows.net/indicedereparabilite/scores/[nom_du_fichier].pdf</pre>
+
+                                <ul class="mb-0 ms-2">
+                                    <li><strong>Encodage du liens pour respecter le contrôle REGEX de Data.gouv</strong><br>
+                                        Bien que le lien fonctionne dans cet état, Data.gouv a des règles REGEX à suivre au niveau de leurs données. Si elles ne sont pas respectées, le fichier ne sera pas éligible à la publication. Donc, pour éviter cela, on va remplacer les espaces par "%20", les virgules par "%2C" et tous les autres caractères interdits par "_".</li>
+                                </ul>
+
+                                <ul class="mb-0 ms-2">
+                                    <li><strong>Insertion du lien dans MongoDB</strong><br>
+                                        Une fois le lien généré, il est inséré dans le document correspondant au produit dans la base MongoDB, rendant le tableau de notation accessible.
+                                    </li>
+                                </ul>
+
+                                <ul class="mb-0 ms-2">
+                                    <li><strong>Détection d'un dossier contenant les PDF </strong><br>
+                                        Si lors de l'upload d'un fichier sur Data.Gouv il y a une erreur, un mail contenant l'erreur affichée sur le site et le nom du fichier est automatiquement envoyé au support pour l'informer de l'erreur et lui permettre de le régler manuellement.
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li class="mb-3"><strong>Automatisation complète du processus</strong><br>
+                                        <span class="fw-semibold">Points clés :</span>
+                                        <ul class="ms-4 mb-2">
+                                        <li>Détection du PDF associé à chaque produit</li>
+                                        <li>Génération et encodage du lien Blob Storage conforme aux exigences Data.gouv</li>
+                                        <li>Insertion automatique du lien dans MongoDB, sans intervention manuelle</li>
+                                        <li>Envoie de mail d'erreurs en cas d'erreur lors de la publication d'un fichier</li>
+                                        </ul>
+                                        <span class="fw-semibold">Exemple de résultat :</span>
+                                        <pre style="background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 8px; overflow-x: auto;">{
+"nom_modele": "miele_note_produit_12345",
+"url_tableau_detail_notation": "https://webprodstoragepublic.blob.core.windows.net/indicedereparabilite/scores/miele_note_produit_12345-TABLEAU_DE_NOTATION.pdf"
+}
+                                        </pre>
+                                    </li>
+                                </ul>
+                            </div>
                     </section>
                     <section class="mb-4">
                         <h3 class="fw-semibold mb-2">Résultat</h3>
@@ -127,12 +138,11 @@ insert_json_to_mongodb(json_data, mongo_uri, db_name, collection_name)</pre>
                             <p><strong>✓ Déployé en production</strong> sur serveur sécurisé</p>
                             <p><strong>✓ Surveillance automatique</strong> 24/7</p>
                             <p><strong>✓ Synchronisation en temps réel</strong> avec MongoDB</p>
-                            <p><strong>✓ Zéro intervention manuelle</strong> requise</p>
                         </div>
                     </section>
                     <section class="mb-4">
                         <h3 class="fw-semibold mb-2">Conclusion</h3>
-                        <p>Cette mission m’a permis de développer une solution complète et robuste pour résoudre une problématique réelle rencontrée par les équipes métier. En plus de renforcer la fiabilité des données publiées, cette évolution contribue à professionnaliser notre gestion documentaire, tout en respectant les contraintes d’automatisation. J’ai pu approfondir mes compétences en traitement de fichiers, en manipulation de MongoDB, et en conception de workflows fiables et réutilisables.</p>
+                        <p>Cette mission m’a appris à automatiser l’ajout de liens vers les PDF et à mieux gérer les fichiers et la base MongoDB, tout en répondant aux besoins concrets de l’équipe.</p>
                     </section>
                     <div class="d-flex justify-content-end mt-5">
                     </div>

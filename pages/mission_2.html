@@ -105,6 +105,18 @@
 └── error_folder/             # Fichiers et logs d'erreurs</pre>
                         </div>
                         
+                        <h3>Architecture technique de la solution</h3>
+                        <div class="lessons-learned">
+                            <h4>Déroulement du script</h4>
+                            <ul>
+                                <li>Le script récupère automatiquement les fichiers reçus par FTP ou par email et les place dans le dossier <strong>input_files</strong>.</li>
+                                <li>Pour chaque fichier <strong>.XLSM</strong>, la macro intégrée est exécutée afin de générer un fichier <strong>.CSV</strong>. Le fichier source <strong>.XLSM</strong> est ensuite supprimé et le fichier <strong>.CSV</strong> est déplacé dans le dossier <strong>output_csv</strong>.</li>
+                                <li>Le script lance ensuite le processus d’automatisation pour uploader chaque fichier sur <strong>data.gouv.fr</strong>, un par un.</li>
+                                <li>Après un upload réussi, le fichier traité est supprimé et le script passe au suivant.</li>
+                                <li>En cas d’erreur lors de l’upload, le fichier concerné est déplacé dans le dossier <strong>error_folder</strong> accompagné d’un fichier <strong>.txt</strong> contenant le détail de l’erreur affichée sur la plateforme.</li>
+                            </ul>
+                        </div>
+
                         <h3>Fonctionnalités développées</h3>
                         <div class="highlight-box">
                             <h1><strong>Conversion automatique de formats :</strong></h1>
@@ -224,16 +236,16 @@
                             <h4>Fonctionnement :</h4>
                             <ul>
                                 <li>Détection d'un échec de publication</li>
-                                <li>Envoi automatique d'un email aux parties prenantes</li>
-                                <li>Contenu de l'email : détails de l'échec, actions correctives recommandées</li>
+                                <li>Envoi automatique d'un email au support</li>
+                                <li>Contenu de l&#39;email : description précise de l&#39;erreur rencontrée et le nom du fichier concerné</li>
                             </ul>
 
                             <h4>Screen du mail :</h4>
-                                    <img src="../assets/Screen_Mail.png" alt="Capture d'écran du mail d'alerte" style="max-width: 100%; height: auto; border-radius: 8px;"></img>
+                                    <img src="../assets/Screen_Mail.png" alt="Capture d'écran du mail d'alerte" style="max-width: 100%; height: auto; border-radius: 8px;" />
                         </div>
 
                         <h3>Conclusion</h3>
-                            <p>L’automatisation via Selenium remplit pleinement son rôle : elle permet de publier les indices de réparabilité et de durabilité sur data.gouv.fr sans intervention humaine. La solution est opérationnelle, conforme aux obligations légales, et s’intègre efficacement dans le processus métier. En l’absence d’API officielle, cette méthode reste, à ce jour, l’unique alternative viable.</p>
+                            <p>Grâce à l’automatisation avec Selenium, j’ai pu publier les indices sur data.gouv.fr sans avoir à le faire manuellement. Même si ce n’est pas la solution idéale (il n’y a pas d’API), ça fonctionne bien et ça répond aux besoins de l’entreprise. Pour l’instant, c’est la meilleure option disponible.</p>
 
                 </article>
 
